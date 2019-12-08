@@ -38,6 +38,7 @@ namespace Loomer
             cbWeftColor.SetItem(new ColorOption(_options.WeftColor));
             nudSquareSize.Value = _options.SquareSize;
             chkDrawCoordinates.Checked = _options.DrawCoordinates;
+            tbHarnessOrder.Text = _options.HarnessOrder;
 
             BindingSource bs = new BindingSource();
             var list = new BindingList<SimpleWeaver.Harness>(_options.Patterns ?? new List<SimpleWeaver.Harness>());

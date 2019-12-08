@@ -36,6 +36,8 @@ namespace Loomer
                 HarnessOrder = string.Join("", Harnesses.Select(h => h.Letter));
             }
 
+            if (AnyDuplicateHarnessLetters(out string letters)) throw new ArgumentException($"Can't have duplicate harness letter: {letters}");
+
             var harnessOrder =
                 (from h in Harnesses
                 join o in HarnessOrder.ToCharArray() on h.Letter.ToLower() equals o.ToString().ToLower()
@@ -61,6 +63,20 @@ namespace Loomer
                     }
                 }
             }
+        }
+
+        private bool AnyDuplicateHarnessLetters(out string letters)
+        {
+            var dups = Harnesses.Select(h => h.Letter.ToLower()).GroupBy(s => s).Where(grp => grp.Count() > 1).Select(grp => grp.Key);
+            
+            if (dups.Any())
+            {
+                letters = string.Join(", ", dups);
+                return true;
+            }
+
+            letters = null;
+            return false;
         }
 
         private void DrawBox(Graphics g, int x, int y, Brush brush)
@@ -101,7 +117,23 @@ namespace Loomer
 
         public void AlertUnusedHarnesses(DataGridView dataGridView)
         {
-            throw new NotImplementedException();
+            var harnessesDefined = Harnesses.Select(h => h.Letter.ToLower());
+            var harnessesInUse = HarnessOrder.ToCharArray().Select(c => c.ToString().ToLower());
+            var unused = harnessesDefined.Except(harnessesInUse);
+            
+            if (unused.Any())
+            {
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    row.ErrorText = null;
+                    if (unused.Contains(row.Cells["colLetter"].Value.ToString().ToLower()))
+                    {                                   
+                        row.ErrorText = "Your pattern doesn't use this harness";
+                    }
+                }
+            }
         }
 
         public class Harness
