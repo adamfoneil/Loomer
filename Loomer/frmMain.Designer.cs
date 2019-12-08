@@ -246,7 +246,7 @@
             this.ClientSize = new System.Drawing.Size(800, 497);
             this.Controls.Add(this.splitContainer1);
             this.Name = "frmMain";
-            this.Text = "Form1";
+            this.Text = "OneilWeave";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);

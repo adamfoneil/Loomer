@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using WinForms.Library.Models;
 
 namespace Loomer
 {
@@ -11,5 +12,7 @@ namespace Loomer
         public List<SimpleWeaver.Harness> Patterns { get; set; }
         public bool DrawCoordinates { get; set; }
         public string HarnessOrder { get; set; }
+
+        public FormPosition FormPosition { get; set; }
     }
 }

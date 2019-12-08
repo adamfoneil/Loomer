@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using WinForms.Library.Extensions;
+using WinForms.Library.Models;
 
 namespace Loomer
 {
@@ -29,22 +30,30 @@ namespace Loomer
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {            
-            FillColorOptions(cbWarpColor);
-            FillColorOptions(cbWeftColor);
+        {
+            try
+            {
+                FillColorOptions(cbWarpColor);
+                FillColorOptions(cbWeftColor);
 
-            _options = LoadOptions();
-            cbWarpColor.SetItem(new ColorOption(_options.WarpColor));
-            cbWeftColor.SetItem(new ColorOption(_options.WeftColor));
-            nudSquareSize.Value = _options.SquareSize;
-            chkDrawCoordinates.Checked = _options.DrawCoordinates;
-            tbHarnessOrder.Text = _options.HarnessOrder;
+                _options = LoadOptions();
+                _options.FormPosition?.Apply(this);
+                cbWarpColor.SetItem(new ColorOption(_options.WarpColor));
+                cbWeftColor.SetItem(new ColorOption(_options.WeftColor));
+                nudSquareSize.Value = _options.SquareSize;
+                chkDrawCoordinates.Checked = _options.DrawCoordinates;
+                tbHarnessOrder.Text = _options.HarnessOrder;
 
-            BindingSource bs = new BindingSource();
-            var list = new BindingList<SimpleWeaver.Harness>(_options.Patterns ?? new List<SimpleWeaver.Harness>());
-            list.AllowNew = true;
-            bs.DataSource = list;
-            dgvHarnesses.DataSource = bs;
+                BindingSource bs = new BindingSource();
+                var list = new BindingList<SimpleWeaver.Harness>(_options.Patterns ?? new List<SimpleWeaver.Harness>());
+                list.AllowNew = true;
+                bs.DataSource = list;
+                dgvHarnesses.DataSource = bs;
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
         private string OptionsFilename { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LoomerSettings.json"); } }
@@ -69,6 +78,7 @@ namespace Loomer
             _options.Patterns = (dgvHarnesses.DataSource as BindingSource).OfType<SimpleWeaver.Harness>().ToList();
             _options.DrawCoordinates = chkDrawCoordinates.Checked;
             _options.HarnessOrder = tbHarnessOrder.Text;
+            _options.FormPosition = FormPosition.FromForm(this);
             JsonFile.Save(OptionsFilename, _options);
         }
 
