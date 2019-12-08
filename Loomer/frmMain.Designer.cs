@@ -120,7 +120,7 @@
             // 
             this.nudSquareSize.Location = new System.Drawing.Point(87, 106);
             this.nudSquareSize.Minimum = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             0});
@@ -128,7 +128,7 @@
             this.nudSquareSize.Size = new System.Drawing.Size(104, 20);
             this.nudSquareSize.TabIndex = 5;
             this.nudSquareSize.Value = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             0});
