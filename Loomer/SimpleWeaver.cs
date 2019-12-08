@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Loomer
@@ -50,7 +51,7 @@ namespace Loomer
 
                     foreach (var harnessLetter in harnessGroups[index])
                     {
-                        var pattern = CreatePattern(allHarnesses[harnessLetter], width);
+                        var pattern = allHarnesses[harnessLetter].GetPattern(width);                        
 
                         for (int x = 1; x < width; x++)
                         {
@@ -122,22 +123,6 @@ namespace Loomer
             }            
         }
 
-        public static int[] CreatePattern(Harness harness, int max)
-        {
-            if (harness.Interval < 1) throw new ArgumentException("Harness interval must be greater than zero.");
-            if (harness.StartValue < 1) throw new ArgumentException("Harness start value must be greater than zero.");
-
-            List<int> results = new List<int>();
-            int value = harness.StartValue;
-            results.Add(value);
-            while (value < max)
-            {
-                value += harness.Interval;
-                results.Add(value);
-            }
-            return results.ToArray();
-        }
-
         public static string[] HarnessLetters
         {
             get
@@ -173,15 +158,71 @@ namespace Loomer
             {
             }
 
-            public Harness(int startValue, int interval)
+            public Harness(int startValue, string pattern)
             {
                 StartValue = startValue;
-                Interval = interval;
+                Pattern = pattern;
             }
 
             public string Letter { get; set; }
             public int StartValue { get; set; }
-            public int Interval { get; set; }
+            public string Pattern { get; set; }
+
+            public int[] GetPattern(int max)
+            {
+                return (int.TryParse(Pattern, out int interval)) ?
+                    SimplePattern(interval, max) :
+                    ComplexPattern(max);
+            }
+
+            private int[] ComplexPattern(int max)
+            {
+                var matches = Regex.Matches(Pattern, @"[+|-]\d");
+                
+                List<int> results = new List<int>();
+
+                int value = StartValue;
+                while (value < max)
+                {
+                    foreach (var match in matches.OfType<Match>())
+                    {
+                        int count = ParseNumbers(match.Value);
+                        if (match.Value.StartsWith("+"))
+                        {
+                            results.AddRange(Enumerable.Range(value + 1, count));
+                            value += count;
+                        }
+
+                        if (match.Value.StartsWith("-"))
+                        {
+                            value += count;
+                        }
+                    }
+                }
+
+                return results.ToArray();
+            }
+
+            private int ParseNumbers(string value)
+            {
+                return int.Parse(string.Join("", value.ToCharArray().Where(c => char.IsNumber(c))));
+            }
+
+            private int[] SimplePattern(int interval, int max)
+            {
+                if (interval < 1) throw new ArgumentException("Harness interval must be greater than zero.");
+                if (StartValue < 1) throw new ArgumentException("Harness start value must be greater than zero.");
+
+                List<int> results = new List<int>();
+                int value = StartValue;
+                results.Add(value);
+                while (value < max)
+                {
+                    value += interval;
+                    results.Add(value);
+                }
+                return results.ToArray();
+            }
         }
     }
 }

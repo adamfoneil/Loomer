@@ -37,14 +37,14 @@
             this.btnDraw2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvHarnesses = new System.Windows.Forms.DataGridView();
-            this.colLetter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStart = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colInterval = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.cbWeftColor = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbWarpColor = new System.Windows.Forms.ComboBox();
             this.btnClear = new System.Windows.Forms.Button();
+            this.colLetter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPattern = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -75,7 +75,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.cbWarpColor);
             this.splitContainer1.Panel1.Controls.Add(this.btnClear);
             this.splitContainer1.Size = new System.Drawing.Size(800, 497);
-            this.splitContainer1.SplitterDistance = 207;
+            this.splitContainer1.SplitterDistance = 241;
             this.splitContainer1.TabIndex = 0;
             // 
             // label1
@@ -84,16 +84,16 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 366);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
+            this.label1.Size = new System.Drawing.Size(145, 13);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Harness Order:";
+            this.label1.Text = "Harness Grouping and Order:";
             // 
             // tbHarnessOrder
             // 
             this.tbHarnessOrder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tbHarnessOrder.Location = new System.Drawing.Point(12, 382);
             this.tbHarnessOrder.Name = "tbHarnessOrder";
-            this.tbHarnessOrder.Size = new System.Drawing.Size(179, 20);
+            this.tbHarnessOrder.Size = new System.Drawing.Size(213, 20);
             this.tbHarnessOrder.TabIndex = 11;
             // 
             // chkDrawCoordinates
@@ -110,7 +110,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 109);
+            this.label5.Location = new System.Drawing.Point(14, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 13);
             this.label5.TabIndex = 4;
@@ -118,14 +118,14 @@
             // 
             // nudSquareSize
             // 
-            this.nudSquareSize.Location = new System.Drawing.Point(87, 106);
+            this.nudSquareSize.Location = new System.Drawing.Point(87, 66);
             this.nudSquareSize.Minimum = new decimal(new int[] {
             5,
             0,
             0,
             0});
             this.nudSquareSize.Name = "nudSquareSize";
-            this.nudSquareSize.Size = new System.Drawing.Size(104, 20);
+            this.nudSquareSize.Size = new System.Drawing.Size(70, 20);
             this.nudSquareSize.TabIndex = 5;
             this.nudSquareSize.Value = new decimal(new int[] {
             5,
@@ -138,7 +138,7 @@
             this.btnDraw2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDraw2.Location = new System.Drawing.Point(12, 433);
             this.btnDraw2.Name = "btnDraw2";
-            this.btnDraw2.Size = new System.Drawing.Size(179, 23);
+            this.btnDraw2.Size = new System.Drawing.Size(213, 23);
             this.btnDraw2.TabIndex = 9;
             this.btnDraw2.Text = "Draw";
             this.btnDraw2.UseVisualStyleBackColor = true;
@@ -147,7 +147,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 134);
+            this.label4.Location = new System.Drawing.Point(12, 102);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 13);
             this.label4.TabIndex = 6;
@@ -163,12 +163,59 @@
             this.dgvHarnesses.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colLetter,
             this.colStart,
-            this.colInterval});
-            this.dgvHarnesses.Location = new System.Drawing.Point(12, 150);
+            this.colPattern});
+            this.dgvHarnesses.Location = new System.Drawing.Point(15, 118);
             this.dgvHarnesses.Name = "dgvHarnesses";
-            this.dgvHarnesses.Size = new System.Drawing.Size(179, 207);
+            this.dgvHarnesses.Size = new System.Drawing.Size(213, 239);
             this.dgvHarnesses.TabIndex = 7;
             this.dgvHarnesses.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvPatternRules_DefaultValuesNeeded);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 42);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Weft Color:";
+            // 
+            // cbWeftColor
+            // 
+            this.cbWeftColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbWeftColor.FormattingEnabled = true;
+            this.cbWeftColor.Location = new System.Drawing.Point(87, 39);
+            this.cbWeftColor.Name = "cbWeftColor";
+            this.cbWeftColor.Size = new System.Drawing.Size(138, 21);
+            this.cbWeftColor.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Warp Color:";
+            // 
+            // cbWarpColor
+            // 
+            this.cbWarpColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbWarpColor.FormattingEnabled = true;
+            this.cbWarpColor.Location = new System.Drawing.Point(87, 12);
+            this.cbWarpColor.Name = "cbWarpColor";
+            this.cbWarpColor.Size = new System.Drawing.Size(138, 21);
+            this.cbWarpColor.TabIndex = 1;
+            // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClear.Location = new System.Drawing.Point(12, 462);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(213, 23);
+            this.btnClear.TabIndex = 10;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // colLetter
             // 
@@ -185,59 +232,12 @@
             this.colStart.HeaderText = "Start";
             this.colStart.Name = "colStart";
             // 
-            // colInterval
+            // colPattern
             // 
-            this.colInterval.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colInterval.DataPropertyName = "Interval";
-            this.colInterval.HeaderText = "Interval";
-            this.colInterval.Name = "colInterval";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Weft Color:";
-            // 
-            // cbWeftColor
-            // 
-            this.cbWeftColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbWeftColor.FormattingEnabled = true;
-            this.cbWeftColor.Location = new System.Drawing.Point(12, 74);
-            this.cbWeftColor.Name = "cbWeftColor";
-            this.cbWeftColor.Size = new System.Drawing.Size(179, 21);
-            this.cbWeftColor.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 11);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Warp Color:";
-            // 
-            // cbWarpColor
-            // 
-            this.cbWarpColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbWarpColor.FormattingEnabled = true;
-            this.cbWarpColor.Location = new System.Drawing.Point(12, 27);
-            this.cbWarpColor.Name = "cbWarpColor";
-            this.cbWarpColor.Size = new System.Drawing.Size(179, 21);
-            this.cbWarpColor.TabIndex = 1;
-            // 
-            // btnClear
-            // 
-            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClear.Location = new System.Drawing.Point(12, 462);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(179, 23);
-            this.btnClear.TabIndex = 10;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            this.colPattern.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colPattern.DataPropertyName = "Pattern";
+            this.colPattern.HeaderText = "Pattern";
+            this.colPattern.Name = "colPattern";
             // 
             // frmMain
             // 
@@ -277,7 +277,7 @@
         private System.Windows.Forms.TextBox tbHarnessOrder;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLetter;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStart;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colInterval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPattern;
     }
 }
 

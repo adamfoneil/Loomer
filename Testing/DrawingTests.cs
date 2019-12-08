@@ -9,10 +9,17 @@ namespace Testing
     public class DrawingTests
     {
         [TestMethod]
-        public void PatternCreation()
+        public void SimplePatternCreation()
         {
-            var pattern = SimpleWeaver.CreatePattern(new SimpleWeaver.Harness(1, 4), 10);
+            var pattern = new SimpleWeaver.Harness() { StartValue = 1, Pattern = "4" }.GetPattern(10);            
             Assert.IsTrue(pattern.SequenceEqual(new int[] { 1, 5, 9, 13 }));
+        }
+
+        [TestMethod]
+        public void ComplexPatternCreation()
+        {
+            var pattern = new SimpleWeaver.Harness() { StartValue = 0, Pattern = "+2-3" }.GetPattern(10);
+            Assert.IsTrue(pattern.SequenceEqual(new int[] { 1, 2, 6, 7 }));
         }
 
         [TestMethod]
