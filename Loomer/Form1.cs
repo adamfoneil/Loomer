@@ -20,62 +20,22 @@ namespace Loomer
 
         private void btnDraw_Click(object sender, EventArgs e)
         {
-            const int size = 50;
-
-            var purple = Brushes.BlueViolet;
-            var gold = Brushes.Goldenrod;
-                       
-            int width = splitContainer1.Panel2.ClientRectangle.Width / size;
-            int height = splitContainer1.Panel2.ClientRectangle.Height / size;
-
-            var patterns = new[]
+            var weaver = new SimpleWeaver(splitContainer1.Panel2)
             {
-                new { Pattern = CreatePattern(1, 4, width)},
-                new { Pattern = CreatePattern(2, 4, width)},
-                new { Pattern = CreatePattern(3, 4, width)},
-                new { Pattern = CreatePattern(4, 4, width)}
+                Font = this.Font,
+                SquareSize = 50,
+                WarpColor = Brushes.BlueViolet,
+                WeftColor = Brushes.Goldenrod,
+                Patterns = new SimpleWeaver.PatternRule[]
+                {
+                    new SimpleWeaver.PatternRule(1, 4),
+                    new SimpleWeaver.PatternRule(2, 4),
+                    new SimpleWeaver.PatternRule(3, 4),
+                    new SimpleWeaver.PatternRule(4, 4)
+                }
             };
 
-            using (var g = splitContainer1.Panel2.CreateGraphics())
-            {
-                for (int y = 1; y < height; y++)
-                {
-                    int index = (y - 1) % patterns.Length;
-                    var pattern = patterns[index];
-
-                    for (int x = 1; x < width; x++)
-                    {
-                        if (pattern.Pattern.Contains(x))
-                        {
-                            DrawBox(g, size, x, y, purple);
-                        }
-                        else
-                        {
-                            DrawBox(g, size, x, y, gold);
-                        }
-                    }
-                }
-            }
-        }
-
-        private IEnumerable<int> CreatePattern(int start, int interval, int max)
-        {
-            List<int> results = new List<int>();
-            int value = start;
-            results.Add(start);
-            while (value < max)
-            {
-                value += interval;
-                results.Add(value);
-            }
-            return results;
-        }
-
-        private void DrawBox(Graphics g, int size, int x, int y, Brush brush)
-        {
-            var rect = new Rectangle(new Point((x - 1) * size, (y - 1) * size), new Size(x * size, y * size));
-            g.FillRectangle(brush, rect);
-            g.DrawString($"{x}|{y}", this.Font, Brushes.Black, rect);
+            weaver.Draw();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
