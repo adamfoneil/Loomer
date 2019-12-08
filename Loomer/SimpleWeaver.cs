@@ -66,7 +66,7 @@ namespace Loomer
 
         private Dictionary<int, IEnumerable<string>> GetHarnessGroups()
         {
-            var groups = HarnessOrder.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
+            var groups = HarnessOrder.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
             var indexedGroups = groups.Select((group, index) => new 
             {
                 Index = index,
