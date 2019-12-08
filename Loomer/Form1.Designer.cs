@@ -40,9 +40,7 @@
             this.cbWeftColor = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbWarpColor = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
-            this.btnDraw = new System.Windows.Forms.Button();
             this.chkDrawCoordinates = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -70,9 +68,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.cbWeftColor);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.cbWarpColor);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.btnClear);
-            this.splitContainer1.Panel1.Controls.Add(this.btnDraw);
             this.splitContainer1.Size = new System.Drawing.Size(800, 497);
             this.splitContainer1.SplitterDistance = 165;
             this.splitContainer1.TabIndex = 0;
@@ -80,15 +76,15 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 194);
+            this.label5.Location = new System.Drawing.Point(15, 101);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 13);
-            this.label5.TabIndex = 11;
+            this.label5.TabIndex = 4;
             this.label5.Text = "Square Size:";
             // 
             // nudSquareSize
             // 
-            this.nudSquareSize.Location = new System.Drawing.Point(12, 210);
+            this.nudSquareSize.Location = new System.Drawing.Point(12, 117);
             this.nudSquareSize.Minimum = new decimal(new int[] {
             1,
             0,
@@ -96,7 +92,7 @@
             0});
             this.nudSquareSize.Name = "nudSquareSize";
             this.nudSquareSize.Size = new System.Drawing.Size(138, 20);
-            this.nudSquareSize.TabIndex = 10;
+            this.nudSquareSize.TabIndex = 5;
             this.nudSquareSize.Value = new decimal(new int[] {
             1,
             0,
@@ -117,10 +113,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 243);
+            this.label4.Location = new System.Drawing.Point(12, 151);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 13);
-            this.label4.TabIndex = 8;
+            this.label4.TabIndex = 6;
             this.label4.Text = "Pattern Rules:";
             // 
             // dgvPatternRules
@@ -133,10 +129,10 @@
             this.dgvPatternRules.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colStart,
             this.colInterval});
-            this.dgvPatternRules.Location = new System.Drawing.Point(12, 259);
+            this.dgvPatternRules.Location = new System.Drawing.Point(12, 167);
             this.dgvPatternRules.Name = "dgvPatternRules";
             this.dgvPatternRules.RowHeadersWidth = 30;
-            this.dgvPatternRules.Size = new System.Drawing.Size(138, 145);
+            this.dgvPatternRules.Size = new System.Drawing.Size(138, 237);
             this.dgvPatternRules.TabIndex = 7;
             // 
             // colStart
@@ -156,46 +152,38 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 151);
+            this.label3.Location = new System.Drawing.Point(9, 58);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 13);
-            this.label3.TabIndex = 6;
+            this.label3.TabIndex = 2;
             this.label3.Text = "Weft Color:";
             // 
             // cbWeftColor
             // 
             this.cbWeftColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWeftColor.FormattingEnabled = true;
-            this.cbWeftColor.Location = new System.Drawing.Point(12, 167);
+            this.cbWeftColor.Location = new System.Drawing.Point(12, 74);
             this.cbWeftColor.Name = "cbWeftColor";
             this.cbWeftColor.Size = new System.Drawing.Size(138, 21);
-            this.cbWeftColor.TabIndex = 5;
+            this.cbWeftColor.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 104);
+            this.label2.Location = new System.Drawing.Point(9, 11);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
-            this.label2.TabIndex = 4;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Warp Color:";
             // 
             // cbWarpColor
             // 
             this.cbWarpColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWarpColor.FormattingEnabled = true;
-            this.cbWarpColor.Location = new System.Drawing.Point(12, 120);
+            this.cbWarpColor.Location = new System.Drawing.Point(12, 27);
             this.cbWarpColor.Name = "cbWarpColor";
             this.cbWarpColor.Size = new System.Drawing.Size(138, 21);
-            this.cbWarpColor.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 43);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "SimpleWeaver with fixed colors and pattern:";
+            this.cbWarpColor.TabIndex = 1;
             // 
             // btnClear
             // 
@@ -203,20 +191,10 @@
             this.btnClear.Location = new System.Drawing.Point(12, 462);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(138, 23);
-            this.btnClear.TabIndex = 1;
+            this.btnClear.TabIndex = 10;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // btnDraw
-            // 
-            this.btnDraw.Location = new System.Drawing.Point(12, 55);
-            this.btnDraw.Name = "btnDraw";
-            this.btnDraw.Size = new System.Drawing.Size(115, 23);
-            this.btnDraw.TabIndex = 0;
-            this.btnDraw.Text = "Draw";
-            this.btnDraw.UseVisualStyleBackColor = true;
-            this.btnDraw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
             // chkDrawCoordinates
             // 
@@ -225,7 +203,7 @@
             this.chkDrawCoordinates.Location = new System.Drawing.Point(12, 410);
             this.chkDrawCoordinates.Name = "chkDrawCoordinates";
             this.chkDrawCoordinates.Size = new System.Drawing.Size(109, 17);
-            this.chkDrawCoordinates.TabIndex = 12;
+            this.chkDrawCoordinates.TabIndex = 8;
             this.chkDrawCoordinates.Text = "Draw coordinates";
             this.chkDrawCoordinates.UseVisualStyleBackColor = true;
             // 
@@ -252,9 +230,7 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button btnDraw;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbWeftColor;
         private System.Windows.Forms.Label label2;

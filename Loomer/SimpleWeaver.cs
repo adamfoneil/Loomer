@@ -63,7 +63,7 @@ namespace Loomer
             }            
         }
 
-        private static int[] CreatePattern(PatternRule rule, int max)
+        public static int[] CreatePattern(PatternRule rule, int max)
         {
             if (rule.Interval < 1) throw new ArgumentException("Pattern interval must be greater than zero.");
             if (rule.StartValue < 1) throw new ArgumentException("Pattern start value must be greater than zero.");
