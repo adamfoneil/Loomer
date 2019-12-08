@@ -26,6 +26,8 @@ namespace Loomer
         public string HarnessOrder { get; set; }
         public bool DrawCoordinates { get; set; }
 
+        private HashSet<Point> _warpSquares;
+
         public void Draw()
         {
             int width = _control.ClientRectangle.Width / SquareSize;
@@ -37,6 +39,8 @@ namespace Loomer
 
             var harnessGroups = GetHarnessGroups();
             var allHarnesses = Harnesses.ToDictionary(row => row.Letter.ToLower());
+            
+            _warpSquares = new HashSet<Point>();
 
             using (Graphics g = _control.CreateGraphics())
             {
@@ -53,10 +57,14 @@ namespace Loomer
                             if (pattern.Contains(x))
                             {
                                 DrawBox(g, x, y, WarpColor);
+                                _warpSquares.Add(new Point(x, y));
                             }
                             else
                             {
-                                DrawBox(g, x, y, WeftColor);
+                                if (!_warpSquares.Contains(new Point(x, y)))
+                                {
+                                    DrawBox(g, x, y, WeftColor);
+                                }                                
                             }
                         }
                     }                                        
@@ -64,7 +72,12 @@ namespace Loomer
             }
         }
 
-        private Dictionary<int, IEnumerable<string>> GetHarnessGroups()
+        private bool IsEmpty(int x, int y)
+        {
+            return _warpSquares.Contains(new Point(x, y));
+        }
+
+        private Dictionary<int, string[]> GetHarnessGroups()
         {
             var groups = HarnessOrder.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
             var indexedGroups = groups.Select((group, index) => new 
@@ -73,7 +86,7 @@ namespace Loomer
                 GroupChars = group.ToCharArray().Select(c => c.ToString().ToLower())
             });
 
-            return indexedGroups.ToDictionary(row => row.Index, row => row.GroupChars);
+            return indexedGroups.ToDictionary(row => row.Index, row => row.GroupChars.ToArray());
         }
 
         private void SetDefaultHarnessOrder()
