@@ -211,7 +211,7 @@ namespace Loomer
             private int[] SimplePattern(int interval, int max)
             {
                 if (interval < 1) throw new ArgumentException("Harness interval must be greater than zero.");
-                if (StartValue < 1) throw new ArgumentException("Harness start value must be greater than zero.");
+                if (StartValue < 1) throw new ArgumentException("In a simple pattern, harness start value must be greater than zero.");
 
                 List<int> results = new List<int>();
                 int value = StartValue;
