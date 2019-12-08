@@ -1,6 +1,6 @@
 ﻿namespace Loomer
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -37,14 +37,14 @@
             this.btnDraw2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvHarnesses = new System.Windows.Forms.DataGridView();
+            this.colLetter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colInterval = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.cbWeftColor = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbWarpColor = new System.Windows.Forms.ComboBox();
             this.btnClear = new System.Windows.Forms.Button();
-            this.colLetter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStart = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colInterval = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -110,7 +110,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 107);
+            this.label5.Location = new System.Drawing.Point(12, 109);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 13);
             this.label5.TabIndex = 4;
@@ -118,7 +118,7 @@
             // 
             // nudSquareSize
             // 
-            this.nudSquareSize.Location = new System.Drawing.Point(87, 104);
+            this.nudSquareSize.Location = new System.Drawing.Point(87, 106);
             this.nudSquareSize.Minimum = new decimal(new int[] {
             1,
             0,
@@ -166,10 +166,31 @@
             this.colInterval});
             this.dgvHarnesses.Location = new System.Drawing.Point(12, 150);
             this.dgvHarnesses.Name = "dgvHarnesses";
-            this.dgvHarnesses.RowHeadersWidth = 30;
             this.dgvHarnesses.Size = new System.Drawing.Size(179, 207);
             this.dgvHarnesses.TabIndex = 7;
             this.dgvHarnesses.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvPatternRules_DefaultValuesNeeded);
+            // 
+            // colLetter
+            // 
+            this.colLetter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colLetter.DataPropertyName = "Letter";
+            this.colLetter.HeaderText = "Harness";
+            this.colLetter.MaxInputLength = 1;
+            this.colLetter.Name = "colLetter";
+            // 
+            // colStart
+            // 
+            this.colStart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colStart.DataPropertyName = "StartValue";
+            this.colStart.HeaderText = "Start";
+            this.colStart.Name = "colStart";
+            // 
+            // colInterval
+            // 
+            this.colInterval.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colInterval.DataPropertyName = "Interval";
+            this.colInterval.HeaderText = "Interval";
+            this.colInterval.Name = "colInterval";
             // 
             // label3
             // 
@@ -218,35 +239,13 @@
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // colLetter
-            // 
-            this.colLetter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colLetter.DataPropertyName = "Letter";
-            this.colLetter.HeaderText = "Harness";
-            this.colLetter.MaxInputLength = 1;
-            this.colLetter.Name = "colLetter";
-            // 
-            // colStart
-            // 
-            this.colStart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colStart.DataPropertyName = "StartValue";
-            this.colStart.HeaderText = "Start";
-            this.colStart.Name = "colStart";
-            // 
-            // colInterval
-            // 
-            this.colInterval.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colInterval.DataPropertyName = "Interval";
-            this.colInterval.HeaderText = "Interval";
-            this.colInterval.Name = "colInterval";
-            // 
-            // Form1
+            // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 497);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "Form1";
+            this.Name = "frmMain";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);

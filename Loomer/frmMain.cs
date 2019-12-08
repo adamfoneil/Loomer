@@ -11,11 +11,11 @@ using WinForms.Library.Extensions;
 
 namespace Loomer
 {
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
         private Options _options = null;
 
-        public Form1()
+        public frmMain()
         {
             InitializeComponent();
         }

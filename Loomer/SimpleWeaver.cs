@@ -30,18 +30,15 @@ namespace Loomer
         {
             int width = _control.ClientRectangle.Width / SquareSize;
             int height = _control.ClientRectangle.Height / SquareSize;
-
-            if (string.IsNullOrEmpty(HarnessOrder))
-            {
-                HarnessOrder = string.Join("", Harnesses.Select(h => h.Letter));
-            }
+            
+            SetDefaultHarnessOrder();
 
             if (AnyDuplicateHarnessLetters(out string letters)) throw new ArgumentException($"Can't have duplicate harness letter: {letters}");
 
             var harnessOrder =
                 (from h in Harnesses
-                join o in HarnessOrder.ToCharArray() on h.Letter.ToLower() equals o.ToString().ToLower()
-                select h).ToArray();
+                 join o in HarnessOrder.ToCharArray() on h.Letter.ToLower() equals o.ToString().ToLower()
+                 select h).ToArray();
 
             using (Graphics g = _control.CreateGraphics())
             {
@@ -62,6 +59,14 @@ namespace Loomer
                         }
                     }
                 }
+            }
+        }
+
+        private void SetDefaultHarnessOrder()
+        {
+            if (string.IsNullOrEmpty(HarnessOrder))
+            {
+                HarnessOrder = string.Join("", Harnesses.Select(h => h.Letter));
             }
         }
 
@@ -117,23 +122,22 @@ namespace Loomer
 
         public void AlertUnusedHarnesses(DataGridView dataGridView)
         {
+            SetDefaultHarnessOrder();
+
             var harnessesDefined = Harnesses.Select(h => h.Letter.ToLower());
             var harnessesInUse = HarnessOrder.ToCharArray().Select(c => c.ToString().ToLower());
             var unused = harnessesDefined.Except(harnessesInUse);
-            
-            if (unused.Any())
+                        
+            foreach (DataGridViewRow row in dataGridView.Rows)
             {
-                foreach (DataGridViewRow row in dataGridView.Rows)
-                {
-                    if (row.IsNewRow) continue;
+                if (row.IsNewRow) continue;
 
-                    row.ErrorText = null;
-                    if (unused.Contains(row.Cells["colLetter"].Value.ToString().ToLower()))
-                    {                                   
-                        row.ErrorText = "Your pattern doesn't use this harness";
-                    }
+                row.ErrorText = null;
+                if (unused.Contains(row.Cells["colLetter"].Value.ToString().ToLower()))
+                {                                   
+                    row.ErrorText = "Your pattern doesn't use this harness";
                 }
-            }
+            }            
         }
 
         public class Harness
