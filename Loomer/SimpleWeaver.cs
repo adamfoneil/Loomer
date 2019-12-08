@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Loomer
         public Color WarpColor { get; set; }
         public Color WeftColor { get; set; }
         public int SquareSize { get; set; }
+        [JsonIgnore]
         public Font Font { get; set; } 
         public List<Harness> Harnesses { get; set; }
         public string HarnessOrder { get; set; }
