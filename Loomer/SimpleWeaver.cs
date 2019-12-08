@@ -22,7 +22,8 @@ namespace Loomer
         public Brush WeftColor { get; set; }
         public int SquareSize { get; set; }
         public Font Font { get; set; } 
-        public PatternRule[] Patterns { get; set; }
+        public Harness[] Harnesses { get; set; }
+        public string HarnessOrder { get; set; }
         public bool DrawCoordinates { get; set; }
 
         public void Draw()
@@ -30,12 +31,22 @@ namespace Loomer
             int width = _control.ClientRectangle.Width / SquareSize;
             int height = _control.ClientRectangle.Height / SquareSize;
 
+            if (string.IsNullOrEmpty(HarnessOrder))
+            {
+                HarnessOrder = string.Join("", Harnesses.Select(h => h.Letter));
+            }
+
+            var harnessOrder =
+                (from h in Harnesses
+                join o in HarnessOrder.ToCharArray() on h.Letter.ToLower() equals o.ToString().ToLower()
+                select h).ToArray();
+
             using (Graphics g = _control.CreateGraphics())
             {
                 for (int y = 1; y < height; y++)
                 {
-                    int index = (y - 1) % Patterns.Length;
-                    var pattern = CreatePattern(Patterns[index], width);
+                    int index = (y - 1) % harnessOrder.Length;
+                    var pattern = CreatePattern(harnessOrder[index], width);
 
                     for (int x = 1; x < width; x++)
                     {
@@ -63,34 +74,49 @@ namespace Loomer
             }            
         }
 
-        public static int[] CreatePattern(PatternRule rule, int max)
+        public static int[] CreatePattern(Harness harness, int max)
         {
-            if (rule.Interval < 1) throw new ArgumentException("Pattern interval must be greater than zero.");
-            if (rule.StartValue < 1) throw new ArgumentException("Pattern start value must be greater than zero.");
+            if (harness.Interval < 1) throw new ArgumentException("Harness interval must be greater than zero.");
+            if (harness.StartValue < 1) throw new ArgumentException("Harness start value must be greater than zero.");
 
             List<int> results = new List<int>();
-            int value = rule.StartValue;
+            int value = harness.StartValue;
             results.Add(value);
             while (value < max)
             {
-                value += rule.Interval;
+                value += harness.Interval;
                 results.Add(value);
             }
             return results.ToArray();
         }
 
-        public class PatternRule
+        public static string[] HarnessLetters
         {
-            public PatternRule()
+            get
+            {
+                char a = 'A';
+                return Enumerable.Range((int)a, 26).Select(i => Convert.ToChar(i).ToString()).ToArray();
+            }
+        }
+
+        public void AlertUnusedHarnesses(DataGridView dataGridView)
+        {
+            throw new NotImplementedException();
+        }
+
+        public class Harness
+        {
+            public Harness()
             {
             }
 
-            public PatternRule(int startValue, int interval)
+            public Harness(int startValue, int interval)
             {
                 StartValue = startValue;
                 Interval = interval;
             }
 
+            public string Letter { get; set; }
             public int StartValue { get; set; }
             public int Interval { get; set; }
         }

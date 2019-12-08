@@ -19,27 +19,7 @@ namespace Loomer
         {
             InitializeComponent();
         }
-
-        private void btnDraw_Click(object sender, EventArgs e)
-        {
-            var weaver = new SimpleWeaver(splitContainer1.Panel2)
-            {
-                Font = this.Font,
-                SquareSize = 50,
-                WarpColor = Brushes.BlueViolet,
-                WeftColor = Brushes.Goldenrod,
-                Patterns = new SimpleWeaver.PatternRule[]
-                {
-                    new SimpleWeaver.PatternRule(1, 4),
-                    new SimpleWeaver.PatternRule(2, 4),
-                    new SimpleWeaver.PatternRule(3, 4),
-                    new SimpleWeaver.PatternRule(4, 4)
-                }
-            };
-
-            weaver.Draw();
-        }
-
+      
         private void btnClear_Click(object sender, EventArgs e)
         {
             using (var g = splitContainer1.Panel2.CreateGraphics())
@@ -60,10 +40,10 @@ namespace Loomer
             chkDrawCoordinates.Checked = _options.DrawCoordinates;
 
             BindingSource bs = new BindingSource();
-            var list = new BindingList<SimpleWeaver.PatternRule>(_options.Patterns ?? new List<SimpleWeaver.PatternRule>());
+            var list = new BindingList<SimpleWeaver.Harness>(_options.Patterns ?? new List<SimpleWeaver.Harness>());
             list.AllowNew = true;
             bs.DataSource = list;
-            dgvPatternRules.DataSource = bs;
+            dgvHarnesses.DataSource = bs;
         }
 
         private string OptionsFilename { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LoomerSettings.json"); } }
@@ -85,8 +65,9 @@ namespace Loomer
             _options.WarpColor = cbWarpColor.GetItem<ColorOption>().Color;
             _options.WeftColor = cbWeftColor.GetItem<ColorOption>().Color;
             _options.SquareSize = Convert.ToInt32(nudSquareSize.Value);
-            _options.Patterns = (dgvPatternRules.DataSource as BindingSource).OfType<SimpleWeaver.PatternRule>().ToList();
+            _options.Patterns = (dgvHarnesses.DataSource as BindingSource).OfType<SimpleWeaver.Harness>().ToList();
             _options.DrawCoordinates = chkDrawCoordinates.Checked;
+            _options.HarnessOrder = tbHarnessOrder.Text;
             JsonFile.Save(OptionsFilename, _options);
         }
 
@@ -102,7 +83,7 @@ namespace Loomer
             foreach (var item in colors) comboBox.Items.Add(new ColorOption() { Color = Color.FromName(item), Name = item });
         }
 
-        private void btnDraw2_Click(object sender, EventArgs e)
+        private void btnDraw_Click(object sender, EventArgs e)
         {
             try
             {
@@ -112,9 +93,12 @@ namespace Loomer
                     SquareSize = Convert.ToInt32(nudSquareSize.Value),
                     WarpColor = (cbWarpColor.SelectedItem as ColorOption).ToBrush(),
                     WeftColor = (cbWeftColor.SelectedItem as ColorOption).ToBrush(),
-                    Patterns = (dgvPatternRules.DataSource as BindingSource).OfType<SimpleWeaver.PatternRule>().ToArray(),
+                    Harnesses = (dgvHarnesses.DataSource as BindingSource).OfType<SimpleWeaver.Harness>().ToArray(),
+                    HarnessOrder = tbHarnessOrder.Text,
                     DrawCoordinates = chkDrawCoordinates.Checked
                 };
+
+                weaver.AlertUnusedHarnesses(dgvHarnesses);
 
                 weaver.Draw();
             }
@@ -127,6 +111,11 @@ namespace Loomer
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveOptions();
+        }
+
+        private void dgvPatternRules_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["colLetter"].Value = SimpleWeaver.HarnessLetters[e.Row.Index];
         }
     }
 }
