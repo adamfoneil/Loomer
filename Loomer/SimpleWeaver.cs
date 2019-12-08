@@ -29,44 +29,58 @@ namespace Loomer
         public void Draw()
         {
             int width = _control.ClientRectangle.Width / SquareSize;
-            int height = _control.ClientRectangle.Height / SquareSize;
-            
-            SetDefaultHarnessOrder();
+            int height = _control.ClientRectangle.Height / SquareSize;            
 
             if (AnyDuplicateHarnessLetters(out string letters)) throw new ArgumentException($"Can't have duplicate harness letter: {letters}");
 
-            var harnessOrder =
-                (from h in Harnesses
-                 join o in HarnessOrder.ToCharArray() on h.Letter.ToLower() equals o.ToString().ToLower()
-                 select h).ToArray();
+            SetDefaultHarnessOrder();
+
+            var harnessGroups = GetHarnessGroups();
+            var allHarnesses = Harnesses.ToDictionary(row => row.Letter.ToLower());
 
             using (Graphics g = _control.CreateGraphics())
             {
                 for (int y = 1; y < height; y++)
                 {
-                    int index = (y - 1) % harnessOrder.Length;
-                    var pattern = CreatePattern(harnessOrder[index], width);
+                    int index = (y - 1) % harnessGroups.Count;
 
-                    for (int x = 1; x < width; x++)
+                    foreach (var harnessLetter in harnessGroups[index])
                     {
-                        if (pattern.Contains(x))
+                        var pattern = CreatePattern(allHarnesses[harnessLetter], width);
+
+                        for (int x = 1; x < width; x++)
                         {
-                            DrawBox(g, x, y, WarpColor);
+                            if (pattern.Contains(x))
+                            {
+                                DrawBox(g, x, y, WarpColor);
+                            }
+                            else
+                            {
+                                DrawBox(g, x, y, WeftColor);
+                            }
                         }
-                        else
-                        {
-                            DrawBox(g, x, y, WeftColor);
-                        }
-                    }
+                    }                                        
                 }
             }
+        }
+
+        private Dictionary<int, IEnumerable<string>> GetHarnessGroups()
+        {
+            var groups = HarnessOrder.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
+            var indexedGroups = groups.Select((group, index) => new 
+            {
+                Index = index,
+                GroupChars = group.ToCharArray().Select(c => c.ToString().ToLower())
+            });
+
+            return indexedGroups.ToDictionary(row => row.Index, row => row.GroupChars);
         }
 
         private void SetDefaultHarnessOrder()
         {
             if (string.IsNullOrEmpty(HarnessOrder))
             {
-                HarnessOrder = string.Join("", Harnesses.Select(h => h.Letter));
+                HarnessOrder = string.Join(", ", Harnesses.Select(h => h.Letter.ToLower()));
             }
         }
 
