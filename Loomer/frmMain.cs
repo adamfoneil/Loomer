@@ -38,7 +38,8 @@ namespace Loomer
 
                 _options = LoadOptions();
                 _options.FormPosition?.Apply(this);
-                LoadWeaverOptions();
+
+                if (_options.Weaver != null) LoadWeaverOptions(_options.Weaver);
             }
             catch (Exception exc)
             {
@@ -46,16 +47,16 @@ namespace Loomer
             }
         }
 
-        private void LoadWeaverOptions()
+        private void LoadWeaverOptions(SimpleWeaver weaver)
         {
-            cbWarpColor.SetItem(new ColorOption(_options.Weaver.WarpColor));
-            cbWeftColor.SetItem(new ColorOption(_options.Weaver.WeftColor));
-            nudSquareSize.Value = _options.Weaver.SquareSize;
-            chkDrawCoordinates.Checked = _options.Weaver.DrawCoordinates;
-            tbHarnessOrder.Text = _options.Weaver.HarnessOrder;
+            cbWarpColor.SetItem(new ColorOption(weaver.WarpColor));
+            cbWeftColor.SetItem(new ColorOption(weaver.WeftColor));
+            nudSquareSize.Value = weaver.SquareSize;
+            chkDrawCoordinates.Checked = weaver.DrawCoordinates;
+            tbHarnessOrder.Text = weaver.HarnessOrder;
 
             BindingSource bs = new BindingSource();
-            var list = new BindingList<SimpleWeaver.Harness>(_options.Weaver?.Harnesses ?? new List<SimpleWeaver.Harness>());
+            var list = new BindingList<SimpleWeaver.Harness>(weaver?.Harnesses ?? new List<SimpleWeaver.Harness>());
             list.AllowNew = true;
             bs.DataSource = list;
             dgvHarnesses.DataSource = bs;
@@ -168,6 +169,7 @@ namespace Loomer
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     var weaver = JsonFile.Load<SimpleWeaver>(dlg.FileName);
+                    LoadWeaverOptions(weaver);
                 }
             }
             catch (Exception exc)
