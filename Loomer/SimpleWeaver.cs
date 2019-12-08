@@ -12,27 +12,20 @@ namespace Loomer
     /// </summary>
     public class SimpleWeaver
     {
-        private readonly Control _control;
-
-        public SimpleWeaver(Control drawingSurface)
-        {
-            _control = drawingSurface;
-        }
-
-        public Brush WarpColor { get; set; }
-        public Brush WeftColor { get; set; }
+        public Color WarpColor { get; set; }
+        public Color WeftColor { get; set; }
         public int SquareSize { get; set; }
         public Font Font { get; set; } 
-        public Harness[] Harnesses { get; set; }
+        public List<Harness> Harnesses { get; set; }
         public string HarnessOrder { get; set; }
         public bool DrawCoordinates { get; set; }
 
         private HashSet<Point> _warpSquares;
 
-        public void Draw()
+        public void Draw(Control drawingSurface)
         {
-            int width = _control.ClientRectangle.Width / SquareSize;
-            int height = _control.ClientRectangle.Height / SquareSize;            
+            int width = drawingSurface.ClientRectangle.Width / SquareSize;
+            int height = drawingSurface.ClientRectangle.Height / SquareSize;            
 
             if (AnyDuplicateHarnessLetters(out string letters)) throw new ArgumentException($"Can't have duplicate harness letter: {letters}");
 
@@ -43,7 +36,7 @@ namespace Loomer
             
             _warpSquares = new HashSet<Point>();
 
-            using (Graphics g = _control.CreateGraphics())
+            using (Graphics g = drawingSurface.CreateGraphics())
             {
                 for (int y = 1; y < height; y++)
                 {
@@ -80,7 +73,7 @@ namespace Loomer
 
         private Dictionary<int, string[]> GetHarnessGroups()
         {
-            var groups = HarnessOrder.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
+            var groups = HarnessOrder.Trim().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim());
             var indexedGroups = groups.Select((group, index) => new 
             {
                 Index = index,
@@ -92,7 +85,7 @@ namespace Loomer
 
         private void SetDefaultHarnessOrder()
         {
-            if (string.IsNullOrEmpty(HarnessOrder))
+            if (string.IsNullOrEmpty(HarnessOrder.Trim()))
             {
                 HarnessOrder = string.Join(", ", Harnesses.Select(h => h.Letter.ToLower()));
             }
@@ -112,10 +105,10 @@ namespace Loomer
             return false;
         }
 
-        private void DrawBox(Graphics g, int x, int y, Brush brush)
+        private void DrawBox(Graphics g, int x, int y, Color color)
         {
             var rect = new Rectangle(new Point((x - 1) * SquareSize, (y - 1) * SquareSize), new Size(x * SquareSize, y * SquareSize));
-            g.FillRectangle(brush, rect);
+            g.FillRectangle(new SolidBrush(color), rect);
 
             if (DrawCoordinates)
             {

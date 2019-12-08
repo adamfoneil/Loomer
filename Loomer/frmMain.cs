@@ -38,22 +38,27 @@ namespace Loomer
 
                 _options = LoadOptions();
                 _options.FormPosition?.Apply(this);
-                cbWarpColor.SetItem(new ColorOption(_options.WarpColor));
-                cbWeftColor.SetItem(new ColorOption(_options.WeftColor));
-                nudSquareSize.Value = _options.SquareSize;
-                chkDrawCoordinates.Checked = _options.DrawCoordinates;
-                tbHarnessOrder.Text = _options.HarnessOrder;
-
-                BindingSource bs = new BindingSource();
-                var list = new BindingList<SimpleWeaver.Harness>(_options.Patterns ?? new List<SimpleWeaver.Harness>());
-                list.AllowNew = true;
-                bs.DataSource = list;
-                dgvHarnesses.DataSource = bs;
+                LoadWeaverOptions();
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }
+        }
+
+        private void LoadWeaverOptions()
+        {
+            cbWarpColor.SetItem(new ColorOption(_options.Weaver.WarpColor));
+            cbWeftColor.SetItem(new ColorOption(_options.Weaver.WeftColor));
+            nudSquareSize.Value = _options.Weaver.SquareSize;
+            chkDrawCoordinates.Checked = _options.Weaver.DrawCoordinates;
+            tbHarnessOrder.Text = _options.Weaver.HarnessOrder;
+
+            BindingSource bs = new BindingSource();
+            var list = new BindingList<SimpleWeaver.Harness>(_options.Weaver?.Harnesses ?? new List<SimpleWeaver.Harness>());
+            list.AllowNew = true;
+            bs.DataSource = list;
+            dgvHarnesses.DataSource = bs;
         }
 
         private string OptionsFilename { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LoomerSettings.json"); } }
@@ -64,20 +69,23 @@ namespace Loomer
                 (File.Exists(OptionsFilename)) ? JsonFile.Load<Options>(OptionsFilename) :
                 new Options();
 
+            if (result.Weaver == null) result.Weaver = new SimpleWeaver();
+
             // make sure no zero in square size
-            if (result.SquareSize < 1) result.SquareSize = 1;
+            if (result.Weaver?.SquareSize < 5) result.Weaver.SquareSize = 5;
 
             return result;
         }
 
         private void SaveOptions()
         {
-            _options.WarpColor = cbWarpColor.GetItem<ColorOption>().Color;
-            _options.WeftColor = cbWeftColor.GetItem<ColorOption>().Color;
-            _options.SquareSize = Convert.ToInt32(nudSquareSize.Value);
-            _options.Patterns = (dgvHarnesses.DataSource as BindingSource).OfType<SimpleWeaver.Harness>().ToList();
-            _options.DrawCoordinates = chkDrawCoordinates.Checked;
-            _options.HarnessOrder = tbHarnessOrder.Text;
+            _options.Weaver = new SimpleWeaver();
+            _options.Weaver.WarpColor = cbWarpColor.GetItem<ColorOption>().Color;
+            _options.Weaver.WeftColor = cbWeftColor.GetItem<ColorOption>().Color;
+            _options.Weaver.SquareSize = Convert.ToInt32(nudSquareSize.Value);
+            _options.Weaver.Harnesses = (dgvHarnesses.DataSource as BindingSource).OfType<SimpleWeaver.Harness>().ToList();
+            _options.Weaver.DrawCoordinates = chkDrawCoordinates.Checked;
+            _options.Weaver.HarnessOrder = tbHarnessOrder.Text;
             _options.FormPosition = FormPosition.FromForm(this);
             JsonFile.Save(OptionsFilename, _options);
         }
@@ -98,25 +106,28 @@ namespace Loomer
         {
             try
             {
-                var weaver = new SimpleWeaver(splitContainer1.Panel2)
-                {
-                    Font = this.Font,
-                    SquareSize = Convert.ToInt32(nudSquareSize.Value),
-                    WarpColor = (cbWarpColor.SelectedItem as ColorOption).ToBrush(),
-                    WeftColor = (cbWeftColor.SelectedItem as ColorOption).ToBrush(),
-                    Harnesses = (dgvHarnesses.DataSource as BindingSource).OfType<SimpleWeaver.Harness>().ToArray(),
-                    HarnessOrder = tbHarnessOrder.Text,
-                    DrawCoordinates = chkDrawCoordinates.Checked
-                };
-
+                SimpleWeaver weaver = GetWeaver();
                 weaver.AlertUnusedHarnesses(dgvHarnesses);
-
-                weaver.Draw();
+                weaver.Draw(splitContainer1.Panel2);
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }            
+        }
+
+        private SimpleWeaver GetWeaver()
+        {
+            return new SimpleWeaver()
+            {
+                Font = this.Font,
+                SquareSize = Convert.ToInt32(nudSquareSize.Value),
+                WarpColor = (cbWarpColor.SelectedItem as ColorOption).Color,
+                WeftColor = (cbWeftColor.SelectedItem as ColorOption).Color,
+                Harnesses = (dgvHarnesses.DataSource as BindingSource).OfType<SimpleWeaver.Harness>().ToList(),
+                HarnessOrder = tbHarnessOrder.Text,
+                DrawCoordinates = chkDrawCoordinates.Checked
+            };
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -127,6 +138,42 @@ namespace Loomer
         private void dgvPatternRules_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells["colLetter"].Value = SimpleWeaver.HarnessLetters[e.Row.Index];
+        }
+
+        private void btnSaveAs_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var dlg = new SaveFileDialog();
+                dlg.Filter = "Json Files|*.json|All Files|*.*";
+                dlg.DefaultExt = "json";
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    var weaver = GetWeaver();
+                    JsonFile.Save(dlg.FileName, weaver);
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var dlg = new OpenFileDialog();
+                dlg.Filter = "Json Files|*.json|All Files|*.*";
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    var weaver = JsonFile.Load<SimpleWeaver>(dlg.FileName);
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
     }
 }

@@ -46,6 +46,8 @@
             this.colLetter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStart = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colPattern = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnSaveAs = new System.Windows.Forms.Button();
+            this.btnOpen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -128,7 +130,8 @@
             // 
             // btnDraw2
             // 
-            this.btnDraw2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDraw2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDraw2.Location = new System.Drawing.Point(12, 82);
             this.btnDraw2.Name = "btnDraw2";
             this.btnDraw2.Size = new System.Drawing.Size(213, 23);
@@ -149,7 +152,7 @@
             this.dgvHarnesses.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvHarnesses.Location = new System.Drawing.Point(0, 108);
             this.dgvHarnesses.Name = "dgvHarnesses";
-            this.dgvHarnesses.Size = new System.Drawing.Size(241, 240);
+            this.dgvHarnesses.Size = new System.Drawing.Size(241, 212);
             this.dgvHarnesses.TabIndex = 7;
             this.dgvHarnesses.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvPatternRules_DefaultValuesNeeded);
             // 
@@ -191,7 +194,8 @@
             // 
             // btnClear
             // 
-            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClear.Location = new System.Drawing.Point(12, 111);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(213, 23);
@@ -216,15 +220,17 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnOpen);
+            this.panel2.Controls.Add(this.btnSaveAs);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.tbHarnessOrder);
             this.panel2.Controls.Add(this.btnDraw2);
             this.panel2.Controls.Add(this.btnClear);
             this.panel2.Controls.Add(this.chkDrawCoordinates);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 348);
+            this.panel2.Location = new System.Drawing.Point(0, 320);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(241, 149);
+            this.panel2.Size = new System.Drawing.Size(241, 177);
             this.panel2.TabIndex = 14;
             // 
             // colLetter
@@ -250,6 +256,26 @@
             this.colPattern.DataPropertyName = "Pattern";
             this.colPattern.HeaderText = "Pattern";
             this.colPattern.Name = "colPattern";
+            // 
+            // btnSaveAs
+            // 
+            this.btnSaveAs.Location = new System.Drawing.Point(12, 142);
+            this.btnSaveAs.Name = "btnSaveAs";
+            this.btnSaveAs.Size = new System.Drawing.Size(95, 23);
+            this.btnSaveAs.TabIndex = 13;
+            this.btnSaveAs.Text = "Save As...";
+            this.btnSaveAs.UseVisualStyleBackColor = true;
+            this.btnSaveAs.Click += new System.EventHandler(this.btnSaveAs_Click);
+            // 
+            // btnOpen
+            // 
+            this.btnOpen.Location = new System.Drawing.Point(130, 142);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(95, 23);
+            this.btnOpen.TabIndex = 14;
+            this.btnOpen.Text = "Open...";
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // frmMain
             // 
@@ -294,6 +320,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colLetter;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStart;
         private System.Windows.Forms.DataGridViewTextBoxColumn colPattern;
+        private System.Windows.Forms.Button btnOpen;
+        private System.Windows.Forms.Button btnSaveAs;
     }
 }
 
