@@ -35,7 +35,9 @@ namespace Loomer
 
             var harnessGroups = GetHarnessGroups();
             var allHarnesses = Harnesses.ToDictionary(row => row.Letter.ToLower());
-            
+
+            ValidateHarnessLetters(harnessGroups, allHarnesses);
+
             _warpSquares = new HashSet<Point>();
 
             using (Graphics g = drawingSurface.CreateGraphics())
@@ -65,6 +67,18 @@ namespace Loomer
                         }
                     }                                        
                 }
+            }
+        }
+
+        private void ValidateHarnessLetters(Dictionary<int, string[]> harnessGroups, Dictionary<string, Harness> allHarnesses)
+        {
+            var harnessLetters = harnessGroups.SelectMany(kp => kp.Value).Distinct();
+            var definedLetters = allHarnesses.Select(kp => kp.Key);
+            var undefined = harnessLetters.Except(definedLetters);
+            if (undefined.Any())
+            {
+                string undefinedLetters = string.Join(", ", undefined);
+                throw new Exception($"There are one or more unrecognized harness letters: {undefinedLetters}");
             }
         }
 
