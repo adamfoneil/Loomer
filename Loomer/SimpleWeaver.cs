@@ -61,7 +61,7 @@ namespace Loomer
                             }
                             else
                             {
-                                if (!_warpSquares.Contains(new Point(x, y)))
+                                if (!HasWarp(x, y))
                                 {
                                     DrawBox(g, x, y, WeftColor);
                                 }                                
@@ -72,7 +72,7 @@ namespace Loomer
             }
         }
 
-        private bool IsEmpty(int x, int y)
+        private bool HasWarp(int x, int y)
         {
             return _warpSquares.Contains(new Point(x, y));
         }
