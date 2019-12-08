@@ -72,6 +72,10 @@ namespace Loomer
 
         public class PatternRule
         {
+            public PatternRule()
+            {
+            }
+
             public PatternRule(int startValue, int interval)
             {
                 StartValue = startValue;

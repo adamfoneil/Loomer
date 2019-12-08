@@ -59,7 +59,9 @@ namespace Loomer
             nudSquareSize.Value = _options.SquareSize;
 
             BindingSource bs = new BindingSource();
-            bs.DataSource = new BindingList<SimpleWeaver.PatternRule>(); 
+            var list = new BindingList<SimpleWeaver.PatternRule>(_options.Patterns ?? new List<SimpleWeaver.PatternRule>());
+            list.AllowNew = true;
+            bs.DataSource = list;
             dgvPatternRules.DataSource = bs;
         }
 
@@ -71,7 +73,7 @@ namespace Loomer
                 (File.Exists(OptionsFilename)) ? JsonFile.Load<Options>(OptionsFilename) :
                 new Options();
 
-            // make sure no bad value here
+            // make sure no zero in square size
             if (result.SquareSize < 1) result.SquareSize = 1;
 
             return result;
@@ -82,6 +84,7 @@ namespace Loomer
             _options.WarpColor = cbWarpColor.GetItem<ColorOption>().Color;
             _options.WeftColor = cbWeftColor.GetItem<ColorOption>().Color;
             _options.SquareSize = Convert.ToInt32(nudSquareSize.Value);
+            _options.Patterns = (dgvPatternRules.DataSource as BindingSource).OfType<SimpleWeaver.PatternRule>().ToList();
             JsonFile.Save(OptionsFilename, _options);
         }
 
@@ -104,7 +107,7 @@ namespace Loomer
                 Font = this.Font,
                 SquareSize = Convert.ToInt32(nudSquareSize.Value),
                 WarpColor = (cbWarpColor.SelectedItem as ColorOption).ToBrush(),
-                WeftColor = (cbWarpColor.SelectedItem as ColorOption).ToBrush(),
+                WeftColor = (cbWeftColor.SelectedItem as ColorOption).ToBrush(),
                 Patterns = (dgvPatternRules.DataSource as BindingSource).OfType<SimpleWeaver.PatternRule>().ToArray()
             };
 
