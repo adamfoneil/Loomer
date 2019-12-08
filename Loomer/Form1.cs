@@ -57,6 +57,7 @@ namespace Loomer
             cbWarpColor.SetItem(new ColorOption(_options.WarpColor));
             cbWeftColor.SetItem(new ColorOption(_options.WeftColor));
             nudSquareSize.Value = _options.SquareSize;
+            chkDrawCoordinates.Checked = _options.DrawCoordinates;
 
             BindingSource bs = new BindingSource();
             var list = new BindingList<SimpleWeaver.PatternRule>(_options.Patterns ?? new List<SimpleWeaver.PatternRule>());
@@ -85,6 +86,7 @@ namespace Loomer
             _options.WeftColor = cbWeftColor.GetItem<ColorOption>().Color;
             _options.SquareSize = Convert.ToInt32(nudSquareSize.Value);
             _options.Patterns = (dgvPatternRules.DataSource as BindingSource).OfType<SimpleWeaver.PatternRule>().ToList();
+            _options.DrawCoordinates = chkDrawCoordinates.Checked;
             JsonFile.Save(OptionsFilename, _options);
         }
 
@@ -102,16 +104,24 @@ namespace Loomer
 
         private void btnDraw2_Click(object sender, EventArgs e)
         {
-            var weaver = new SimpleWeaver(splitContainer1.Panel2)
+            try
             {
-                Font = this.Font,
-                SquareSize = Convert.ToInt32(nudSquareSize.Value),
-                WarpColor = (cbWarpColor.SelectedItem as ColorOption).ToBrush(),
-                WeftColor = (cbWeftColor.SelectedItem as ColorOption).ToBrush(),
-                Patterns = (dgvPatternRules.DataSource as BindingSource).OfType<SimpleWeaver.PatternRule>().ToArray()
-            };
+                var weaver = new SimpleWeaver(splitContainer1.Panel2)
+                {
+                    Font = this.Font,
+                    SquareSize = Convert.ToInt32(nudSquareSize.Value),
+                    WarpColor = (cbWarpColor.SelectedItem as ColorOption).ToBrush(),
+                    WeftColor = (cbWeftColor.SelectedItem as ColorOption).ToBrush(),
+                    Patterns = (dgvPatternRules.DataSource as BindingSource).OfType<SimpleWeaver.PatternRule>().ToArray(),
+                    DrawCoordinates = chkDrawCoordinates.Checked
+                };
 
-            weaver.Draw();
+                weaver.Draw();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -22,6 +23,7 @@ namespace Loomer
         public int SquareSize { get; set; }
         public Font Font { get; set; } 
         public PatternRule[] Patterns { get; set; }
+        public bool DrawCoordinates { get; set; }
 
         public void Draw()
         {
@@ -54,11 +56,17 @@ namespace Loomer
         {
             var rect = new Rectangle(new Point((x - 1) * SquareSize, (y - 1) * SquareSize), new Size(x * SquareSize, y * SquareSize));
             g.FillRectangle(brush, rect);
-            g.DrawString($"{x},{y}", Font, Brushes.Black, rect);
+
+            if (DrawCoordinates)
+            {
+                g.DrawString($"{x},{y}", Font, Brushes.Black, rect);
+            }            
         }
 
         private static int[] CreatePattern(PatternRule rule, int max)
         {
+            if (rule.Interval < 1) throw new ArgumentException("Pattern interval must be greater than zero.");
+
             List<int> results = new List<int>();
             int value = rule.StartValue;
             results.Add(value);

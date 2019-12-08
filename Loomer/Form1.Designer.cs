@@ -43,6 +43,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnDraw = new System.Windows.Forms.Button();
+            this.chkDrawCoordinates = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -59,6 +60,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.chkDrawCoordinates);
             this.splitContainer1.Panel1.Controls.Add(this.label5);
             this.splitContainer1.Panel1.Controls.Add(this.nudSquareSize);
             this.splitContainer1.Panel1.Controls.Add(this.btnDraw2);
@@ -71,7 +73,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.btnClear);
             this.splitContainer1.Panel1.Controls.Add(this.btnDraw);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 450);
+            this.splitContainer1.Size = new System.Drawing.Size(800, 497);
             this.splitContainer1.SplitterDistance = 165;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -93,7 +95,7 @@
             0,
             0});
             this.nudSquareSize.Name = "nudSquareSize";
-            this.nudSquareSize.Size = new System.Drawing.Size(115, 20);
+            this.nudSquareSize.Size = new System.Drawing.Size(138, 20);
             this.nudSquareSize.TabIndex = 10;
             this.nudSquareSize.Value = new decimal(new int[] {
             1,
@@ -103,9 +105,10 @@
             // 
             // btnDraw2
             // 
-            this.btnDraw2.Location = new System.Drawing.Point(12, 386);
+            this.btnDraw2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDraw2.Location = new System.Drawing.Point(12, 433);
             this.btnDraw2.Name = "btnDraw2";
-            this.btnDraw2.Size = new System.Drawing.Size(115, 23);
+            this.btnDraw2.Size = new System.Drawing.Size(138, 23);
             this.btnDraw2.TabIndex = 9;
             this.btnDraw2.Text = "Draw";
             this.btnDraw2.UseVisualStyleBackColor = true;
@@ -124,6 +127,8 @@
             // 
             this.dgvPatternRules.AllowUserToResizeColumns = false;
             this.dgvPatternRules.AllowUserToResizeRows = false;
+            this.dgvPatternRules.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvPatternRules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPatternRules.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colStart,
@@ -131,7 +136,7 @@
             this.dgvPatternRules.Location = new System.Drawing.Point(12, 259);
             this.dgvPatternRules.Name = "dgvPatternRules";
             this.dgvPatternRules.RowHeadersWidth = 30;
-            this.dgvPatternRules.Size = new System.Drawing.Size(138, 121);
+            this.dgvPatternRules.Size = new System.Drawing.Size(138, 145);
             this.dgvPatternRules.TabIndex = 7;
             // 
             // colStart
@@ -163,7 +168,7 @@
             this.cbWeftColor.FormattingEnabled = true;
             this.cbWeftColor.Location = new System.Drawing.Point(12, 167);
             this.cbWeftColor.Name = "cbWeftColor";
-            this.cbWeftColor.Size = new System.Drawing.Size(115, 21);
+            this.cbWeftColor.Size = new System.Drawing.Size(138, 21);
             this.cbWeftColor.TabIndex = 5;
             // 
             // label2
@@ -181,7 +186,7 @@
             this.cbWarpColor.FormattingEnabled = true;
             this.cbWarpColor.Location = new System.Drawing.Point(12, 120);
             this.cbWarpColor.Name = "cbWarpColor";
-            this.cbWarpColor.Size = new System.Drawing.Size(115, 21);
+            this.cbWarpColor.Size = new System.Drawing.Size(138, 21);
             this.cbWarpColor.TabIndex = 3;
             // 
             // label1
@@ -195,9 +200,9 @@
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClear.Location = new System.Drawing.Point(12, 415);
+            this.btnClear.Location = new System.Drawing.Point(12, 462);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(115, 23);
+            this.btnClear.Size = new System.Drawing.Size(138, 23);
             this.btnClear.TabIndex = 1;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
@@ -213,11 +218,22 @@
             this.btnDraw.UseVisualStyleBackColor = true;
             this.btnDraw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
+            // chkDrawCoordinates
+            // 
+            this.chkDrawCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkDrawCoordinates.AutoSize = true;
+            this.chkDrawCoordinates.Location = new System.Drawing.Point(12, 410);
+            this.chkDrawCoordinates.Name = "chkDrawCoordinates";
+            this.chkDrawCoordinates.Size = new System.Drawing.Size(109, 17);
+            this.chkDrawCoordinates.TabIndex = 12;
+            this.chkDrawCoordinates.Text = "Draw coordinates";
+            this.chkDrawCoordinates.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 497);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -250,6 +266,7 @@
         private System.Windows.Forms.Button btnDraw2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown nudSquareSize;
+        private System.Windows.Forms.CheckBox chkDrawCoordinates;
     }
 }
 
