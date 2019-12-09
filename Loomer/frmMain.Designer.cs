@@ -48,6 +48,8 @@
             this.colPattern = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSaveAs = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnNewWindow = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -55,6 +57,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvHarnesses)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -220,8 +223,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.btnOpen);
-            this.panel2.Controls.Add(this.btnSaveAs);
+            this.panel2.Controls.Add(this.tableLayoutPanel1);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.tbHarnessOrder);
             this.panel2.Controls.Add(this.btnDraw2);
@@ -259,9 +261,9 @@
             // 
             // btnSaveAs
             // 
-            this.btnSaveAs.Location = new System.Drawing.Point(12, 142);
+            this.btnSaveAs.Location = new System.Drawing.Point(3, 3);
             this.btnSaveAs.Name = "btnSaveAs";
-            this.btnSaveAs.Size = new System.Drawing.Size(95, 23);
+            this.btnSaveAs.Size = new System.Drawing.Size(74, 23);
             this.btnSaveAs.TabIndex = 13;
             this.btnSaveAs.Text = "Save As...";
             this.btnSaveAs.UseVisualStyleBackColor = true;
@@ -269,13 +271,40 @@
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(130, 142);
+            this.btnOpen.Location = new System.Drawing.Point(83, 3);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(95, 23);
+            this.btnOpen.Size = new System.Drawing.Size(74, 23);
             this.btnOpen.TabIndex = 14;
             this.btnOpen.Text = "Open...";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Controls.Add(this.btnOpen, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnSaveAs, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnNewWindow, 2, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 144);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(241, 33);
+            this.tableLayoutPanel1.TabIndex = 15;
+            // 
+            // btnNewWindow
+            // 
+            this.btnNewWindow.Location = new System.Drawing.Point(163, 3);
+            this.btnNewWindow.Name = "btnNewWindow";
+            this.btnNewWindow.Size = new System.Drawing.Size(75, 23);
+            this.btnNewWindow.TabIndex = 15;
+            this.btnNewWindow.Text = "New Window";
+            this.btnNewWindow.UseVisualStyleBackColor = true;
+            this.btnNewWindow.Click += new System.EventHandler(this.btnNewWindow_Click);
             // 
             // frmMain
             // 
@@ -296,6 +325,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -322,6 +352,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colPattern;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Button btnSaveAs;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button btnNewWindow;
     }
 }
 

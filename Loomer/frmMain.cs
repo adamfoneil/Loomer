@@ -177,5 +177,11 @@ namespace Loomer
                 MessageBox.Show(exc.Message);
             }
         }
+
+        private void btnNewWindow_Click(object sender, EventArgs e)
+        {
+            var frm = new frmMain();
+            frm.Show();
+        }
     }
 }
