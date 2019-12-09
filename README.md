@@ -20,3 +20,6 @@ The heart of the app is the [SimpleWeaver](https://github.com/adamosoftware/Loom
 
 ## What's next?
 One thing that became clear while using this is that it's really hard to design a pattern to a visual spec. You have to work out the plus/minus harness pattern stuff in your head or on a graph paper. The next step for this is to offer some kind of interactive pattern creation UI that lets you click the squares directly to draw a pattern.
+
+## About the repo name
+"Loom" happens to be close to the title of an [MBV song](https://www.youtube.com/watch?v=3bwpoM1k50U), and I'm a huge MBV fan, so there you go.
