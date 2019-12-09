@@ -17,3 +17,6 @@ The heart of the app is the [SimpleWeaver](https://github.com/adamosoftware/Loom
 ![img](https://github.com/adamosoftware/Loomer/blob/master/harness-order2.png)
 
 - The [main form](https://github.com/adamosoftware/Loomer/blob/master/Loomer/frmMain.cs) itself is what renders the UI. I try to keep the core program logic out of this, and mainly just handle UI widgets and events here. For example, this is how I [fill](https://github.com/adamosoftware/Loomer/blob/master/Loomer/frmMain.cs#L94) the color comboboxes. This is the [Draw button](https://github.com/adamosoftware/Loomer/blob/master/Loomer/frmMain.cs#L106). This is how the harnesses are [auto-assigned](https://github.com/adamosoftware/Loomer/blob/master/Loomer/frmMain.cs#L139) the next letter. Here are the [save](https://github.com/adamosoftware/Loomer/blob/master/Loomer/frmMain.cs#L144) and [open](https://github.com/adamosoftware/Loomer/blob/master/Loomer/frmMain.cs#L163) features.
+
+## What's next?
+One thing that became clear while using this is that it's really hard to design a pattern to a visual spec. You have to work out the plus/minus harness pattern stuff in your head or on a graph paper. The next step for this is to offer some kind of interactive pattern creation UI that lets you click the squares directly to draw a pattern.
